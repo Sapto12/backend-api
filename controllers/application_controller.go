@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"applicant-api/config"
-	"applicant-api/models"
+	"backend-api/config"
+	"backend-api/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -37,7 +37,7 @@ type UpdateStageInput struct {
 	Stage string `json:"stage" binding:"required,oneof=applied screening interview offered hired rejected"`
 }
 
-//aplikasi
+// CREATE APPLICANT
 func CreateApplicant(c *gin.Context) {
 	var input CreateApplicantInput
 
@@ -92,7 +92,7 @@ func CreateApplicant(c *gin.Context) {
 
 // LIST APPLICANTS
 func GetApplicants(c *gin.Context) {
-	var applicants []models.Applicant
+	applicants := make([]models.Applicant, 0)
 
 	result := config.DB.Order("created_at DESC").Find(&applicants)
 
